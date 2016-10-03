@@ -1,0 +1,65 @@
+AUTH
+----
+
+exports.handler = (event, context, callback) => {
+    //console.log('Received event:', JSON.stringify(event, null, 2));
+    var accounts = {
+        "13":[
+        {
+            "number": "5329572000000000",
+            "balance": "1000",
+            "name": "Credit Card",
+            "currency": "USD"
+        },
+        {
+            "number": "5329572111111111",
+            "balance": "52000",
+            "name": "Salary Card",
+            "currency": "EUR"
+        }
+    ],
+        "14":[
+        {
+            "number": "2529572000000000",
+            "balance": "100000",
+            "name": "Loan",
+            "currency": "UAH"
+        },
+        {
+            "number": "5836572111111111",
+            "balance": "580",
+            "name": "Salary Card",
+            "currency": "USD"
+        }
+    ],
+    "15":[
+        {
+            "number": "2629572000000000",
+            "balance": "8000",
+            "name": "Deposit",
+            "currency": "USD"
+        },
+        {
+            "number": "4758957211111111",
+            "balance": "13000",
+            "name": "Credit Card",
+            "currency": "EUR"
+        }
+    ]
+    }
+    
+    // TODO implement
+    var res = {};
+    if (typeof(accounts[event.clientId]) != "undefined") {
+        res.result = true;
+        res.clientId = event.clientId;
+        res.accounts = accounts[event.clientId];
+    }
+    else
+    {
+        res.result = false;
+        res.text = "Client not found";
+    }
+    
+    context.succeed(res);
+};
