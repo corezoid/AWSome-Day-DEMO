@@ -1,0 +1,72 @@
+exports.handler = (event, context, callback) => {
+    //console.log('Received event:', JSON.stringify(event, null, 2));
+    var details = {
+        "13":{
+        "5329572000000000":[
+            {
+                "name": "AppleStore payment",
+                "sum": "1.99",
+                "rest": "499",
+                "currency": "USD"
+            },
+            {
+                "name": "Metro Cash&Carry",
+                "sum": "142.29",
+                "rest": "230",
+                "currency": "USD"
+            }
+        ],
+        "5329572111111111":[]
+        },
+        "14":{
+        "2529572000000000":[],
+        "5836572111111111":[]
+        },
+        "15":{
+        "2629572000000000":[
+            {
+                "name": "AppleStore payment",
+                "sum": "10.99",
+                "rest": "199",
+                "currency": "USD"
+            },
+            {
+                "name": "Billa",
+                "sum": "29.14",
+                "rest": "230",
+                "currency": "EUR"
+            }
+        ],
+        "4758957211111111":
+        [
+            {
+                "name": "Hotel",
+                "sum": "230.00",
+                "rest": "199",
+                "currency": "EUR"
+            },
+            {
+                "name": "Bar",
+                "sum": "45.41",
+                "rest": "230",
+                "currency": "EUR"
+            }
+        ]
+        }
+    }
+    
+    // TODO implement
+    var res = {};
+    if (typeof(event.number) != "undefined" && typeof(event.clientId) != "undefined") {
+        res.result = true;
+        res.clientId = event.clientId;
+        res.details = details[event.clientId][event.number];
+    }
+    else
+    {
+        res.result = false;
+        res.text = "ID account not found";
+    }
+    
+    context.succeed(res);
+};
